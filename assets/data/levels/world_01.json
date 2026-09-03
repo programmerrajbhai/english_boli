@@ -1,0 +1,202 @@
+[
+  {
+    "schemaVersion": 1,
+    "id": 1,
+    "order": 1,
+    "worldId": 1,
+    "title": "I, You, He, She",
+    "subtitleBn": "নিজে এবং অন্য মানুষ সম্পর্কে বলা",
+    "difficulty": "beginner",
+    "estimatedMinutes": 30,
+    "passPercentage": 80,
+    "totalPractices": 80,
+    "rewardXp": 100,
+    "rewardStars": 3,
+    "learningGoals": [
+      "I, You, He এবং She-এর পার্থক্য বুঝতে পারবেন",
+      "নিজে ও অন্য মানুষ সম্পর্কে সহজ বাক্য বলতে পারবেন",
+      "সঠিক pronoun শুনে চিনতে ও বলতে পারবেন"
+    ],
+    "sections": []
+  },
+  {
+    "schemaVersion": 1,
+    "id": 2,
+    "order": 2,
+    "worldId": 1,
+    "title": "This, That, It",
+    "subtitleBn": "কাছের ও দূরের জিনিস সম্পর্কে বলা",
+    "difficulty": "beginner",
+    "estimatedMinutes": 30,
+    "passPercentage": 80,
+    "totalPractices": 80,
+    "rewardXp": 105,
+    "rewardStars": 3,
+    "learningGoals": [
+      "This, That এবং It-এর ব্যবহার বুঝতে পারবেন",
+      "কাছের ও দূরের জিনিস দেখিয়ে বলতে পারবেন",
+      "জিনিস সম্পর্কে ছোট বাক্য তৈরি করতে পারবেন"
+    ],
+    "sections": []
+  },
+  {
+    "schemaVersion": 1,
+    "id": 3,
+    "order": 3,
+    "worldId": 1,
+    "title": "My, Your, His, Her",
+    "subtitleBn": "কোন জিনিস কার তা বলা",
+    "difficulty": "beginner",
+    "estimatedMinutes": 30,
+    "passPercentage": 80,
+    "totalPractices": 80,
+    "rewardXp": 110,
+    "rewardStars": 3,
+    "learningGoals": [
+      "My, Your, His এবং Her-এর পার্থক্য বুঝতে পারবেন",
+      "কোন জিনিস কার তা ইংরেজিতে বলতে পারবেন",
+      "Possessive word দিয়ে সহজ বাক্য বলতে পারবেন"
+    ],
+    "sections": []
+  },
+  {
+    "schemaVersion": 1,
+    "id": 4,
+    "order": 4,
+    "worldId": 1,
+    "title": "Am, Is, Are",
+    "subtitleBn": "মানুষ ও জিনিসের অবস্থা সম্পর্কে বলা",
+    "difficulty": "beginner",
+    "estimatedMinutes": 35,
+    "passPercentage": 80,
+    "totalPractices": 80,
+    "rewardXp": 115,
+    "rewardStars": 3,
+    "learningGoals": [
+      "Am, Is এবং Are কোথায় ব্যবহার হয় বুঝতে পারবেন",
+      "মানুষ ও জিনিসের অবস্থা বলতে পারবেন",
+      "সঠিক helping verb দিয়ে বাক্য তৈরি করতে পারবেন"
+    ],
+    "sections": []
+  },
+  {
+    "schemaVersion": 1,
+    "id": 5,
+    "order": 5,
+    "worldId": 1,
+    "title": "Yes and No Answers",
+    "subtitleBn": "সহজ প্রশ্নের হ্যাঁ অথবা না উত্তর দেওয়া",
+    "difficulty": "beginner",
+    "estimatedMinutes": 35,
+    "passPercentage": 80,
+    "totalPractices": 80,
+    "rewardXp": 120,
+    "rewardStars": 3,
+    "learningGoals": [
+      "সহজ প্রশ্নের Yes অথবা No উত্তর দিতে পারবেন",
+      "Short answer এবং full answer-এর পার্থক্য বুঝবেন",
+      "দৈনন্দিন প্রশ্নের দ্রুত উত্তর দিতে পারবেন"
+    ],
+    "sections": []
+  },
+  {
+    "schemaVersion": 1,
+    "id": 6,
+    "order": 6,
+    "worldId": 1,
+    "title": "I Have and I Don't Have",
+    "subtitleBn": "নিজের কাছে কী আছে বা নেই তা বলা",
+    "difficulty": "beginner",
+    "estimatedMinutes": 35,
+    "passPercentage": 80,
+    "totalPractices": 80,
+    "rewardXp": 125,
+    "rewardStars": 3,
+    "learningGoals": [
+      "নিজের কাছে কী আছে তা বলতে পারবেন",
+      "নিজের কাছে কী নেই তা বলতে পারবেন",
+      "Have এবং don't have দিয়ে প্রশ্নের উত্তর দিতে পারবেন"
+    ],
+    "sections": []
+  },
+  {
+    "schemaVersion": 1,
+    "id": 7,
+    "order": 7,
+    "worldId": 1,
+    "title": "I Need and I Want",
+    "subtitleBn": "নিজের প্রয়োজন ও ইচ্ছা প্রকাশ করা",
+    "difficulty": "beginner",
+    "estimatedMinutes": 35,
+    "passPercentage": 80,
+    "totalPractices": 80,
+    "rewardXp": 130,
+    "rewardStars": 3,
+    "learningGoals": [
+      "নিজের প্রয়োজন ইংরেজিতে বলতে পারবেন",
+      "নিজের ইচ্ছা প্রকাশ করতে পারবেন",
+      "Need এবং Want-এর পার্থক্য বুঝতে পারবেন"
+    ],
+    "sections": []
+  },
+  {
+    "schemaVersion": 1,
+    "id": 8,
+    "order": 8,
+    "worldId": 1,
+    "title": "I Like and I Don't Like",
+    "subtitleBn": "নিজের পছন্দ ও অপছন্দ সম্পর্কে বলা",
+    "difficulty": "beginner",
+    "estimatedMinutes": 35,
+    "passPercentage": 80,
+    "totalPractices": 80,
+    "rewardXp": 135,
+    "rewardStars": 3,
+    "learningGoals": [
+      "নিজের পছন্দ সম্পর্কে বলতে পারবেন",
+      "নিজের অপছন্দ সম্পর্কে বলতে পারবেন",
+      "Like এবং don't like দিয়ে conversation করতে পারবেন"
+    ],
+    "sections": []
+  },
+  {
+    "schemaVersion": 1,
+    "id": 9,
+    "order": 9,
+    "worldId": 1,
+    "title": "Daily Action Words",
+    "subtitleBn": "প্রতিদিনের প্রয়োজনীয় কাজের শব্দ শেখা",
+    "difficulty": "beginner",
+    "estimatedMinutes": 40,
+    "passPercentage": 80,
+    "totalPractices": 80,
+    "rewardXp": 140,
+    "rewardStars": 3,
+    "learningGoals": [
+      "প্রতিদিনের প্রয়োজনীয় action word চিনতে পারবেন",
+      "Action word-এর উচ্চারণ ও অর্থ বুঝতে পারবেন",
+      "Action word ব্যবহার করে ছোট বাক্য বলতে পারবেন"
+    ],
+    "sections": []
+  },
+  {
+    "schemaVersion": 1,
+    "id": 10,
+    "order": 10,
+    "worldId": 1,
+    "title": "Simple Daily Sentences",
+    "subtitleBn": "দৈনন্দিন জীবনের সহজ বাক্য বলা",
+    "difficulty": "beginner",
+    "estimatedMinutes": 45,
+    "passPercentage": 80,
+    "totalPractices": 80,
+    "rewardXp": 150,
+    "rewardStars": 3,
+    "learningGoals": [
+      "দৈনন্দিন জীবনের সহজ বাক্য বুঝতে পারবেন",
+      "নিজের দৈনন্দিন কাজ সম্পর্কে বলতে পারবেন",
+      "ছোট প্রশ্ন ও উত্তরের conversation করতে পারবেন"
+    ],
+    "sections": []
+  }
+]

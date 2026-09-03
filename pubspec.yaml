@@ -10,6 +10,7 @@ dependencies:
   flutter:
     sdk: flutter
   shared_preferences: ^2.5.5
+  flutter_tts: ^4.2.5
 
 dev_dependencies:
   flutter_test:
@@ -19,11 +20,13 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
   assets:
     - assets/data/levels/
 
 flutter_native_splash:
   color: "#08100E"
   fullscreen: true
+
   android_12:
     color: "#08100E"

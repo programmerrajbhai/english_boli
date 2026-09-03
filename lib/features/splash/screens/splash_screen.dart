@@ -6,6 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../app.dart';
 import '../../../core/routes/app_routes.dart';
+import '../../../data/repositories/levels_repository.dart';
 
 const _background = Color(0xFF08100E);
 const _white = Color(0xFFF9F8F3);
@@ -31,57 +32,7 @@ class AssetCourseContentLoader implements CourseContentLoader {
 
   @override
   Future<void> validateCourse() async {
-    final manifest = await AssetManifest.loadFromAssetBundle(rootBundle);
-
-    final levelFiles = manifest
-        .listAssets()
-        .where(
-          (path) =>
-              path.startsWith('assets/data/levels/') && path.endsWith('.json'),
-        )
-        .toList(growable: false);
-
-    if (levelFiles.isEmpty) {
-      throw StateError('No level content found');
-    }
-
-    final usedIds = <int>{};
-
-    for (final file in levelFiles) {
-      final source = await rootBundle.loadString(file);
-      final Object? decoded;
-
-      try {
-        decoded = jsonDecode(source);
-      } on FormatException {
-        throw StateError('Invalid JSON: $file');
-      }
-
-      if (decoded is! Map<String, dynamic>) {
-        throw StateError('Invalid level object: $file');
-      }
-
-      final id = decoded['id'];
-      final order = decoded['order'];
-      final title = decoded['title'];
-      final schemaVersion = decoded['schemaVersion'];
-
-      if (schemaVersion is! int || schemaVersion < 1) {
-        throw StateError('Invalid schema version: $file');
-      }
-
-      if (id is! int || id < 1 || !usedIds.add(id)) {
-        throw StateError('Missing or duplicate level ID: $file');
-      }
-
-      if (order is! int || order < 1) {
-        throw StateError('Invalid level order: $file');
-      }
-
-      if (title is! String || title.trim().isEmpty) {
-        throw StateError('Missing level title: $file');
-      }
-    }
+    await const LevelsRepository().loadLevels();
   }
 }
 
