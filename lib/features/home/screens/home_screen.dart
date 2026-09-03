@@ -17,7 +17,11 @@ const _yellow = Color(0xFFFFC928);
 const _coral = Color(0xFFFF6B57);
 const _locked = Color(0xFFD8E0DE);
 
-enum _LevelStatus { completed, current, locked }
+enum _LevelStatus {
+  completed,
+  current,
+  locked,
+}
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -29,13 +33,18 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final LevelsRepository _levelsRepository = const LevelsRepository();
+  final LevelsRepository _levelsRepository =
+  const LevelsRepository();
 
-  final LevelProgressRepository _progressRepository = LevelProgressRepository();
+  final LevelProgressRepository
+  _progressRepository =
+  LevelProgressRepository();
 
-  List<LevelModel> _levels = const <LevelModel>[];
+  List<LevelModel> _levels =
+  const <LevelModel>[];
 
-  Set<int> _completedLevelIds = const <int>{};
+  Set<int> _completedLevelIds =
+  const <int>{};
 
   int _selectedTab = 0;
   int _dailyTarget = 15;
@@ -61,23 +70,41 @@ class _HomeScreenState extends State<HomeScreen> {
     }
 
     try {
-      final levels = await _levelsRepository.loadLevels();
+      final levels =
+      await _levelsRepository.loadLevels();
 
-      final completedLevelIds = await _progressRepository.loadCompletedLevelIds(
+      final completedLevelIds =
+      await _progressRepository
+          .loadCompletedLevelIds(
         levels.map((level) => level.id),
       );
 
-      final preferences = SharedPreferencesAsync();
+      final preferences =
+      SharedPreferencesAsync();
 
       final dailyTarget =
-          await preferences.getInt('daily_target_minutes') ?? 15;
+          await preferences.getInt(
+            'daily_target_minutes',
+          ) ??
+              15;
 
       final dailyMinutes =
-          await preferences.getInt('daily_completed_minutes') ?? 0;
+          await preferences.getInt(
+            'daily_completed_minutes',
+          ) ??
+              0;
 
-      final xp = await preferences.getInt('total_xp') ?? 0;
+      final xp =
+          await preferences.getInt(
+            'total_xp',
+          ) ??
+              0;
 
-      final streak = await preferences.getInt('current_streak') ?? 0;
+      final streak =
+          await preferences.getInt(
+            'current_streak',
+          ) ??
+              0;
 
       if (!mounted) {
         return;
@@ -85,7 +112,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
       setState(() {
         _levels = levels;
-        _completedLevelIds = completedLevelIds;
+        _completedLevelIds =
+            completedLevelIds;
         _dailyTarget = dailyTarget;
         _dailyMinutes = dailyMinutes;
         _xp = xp;
@@ -93,7 +121,9 @@ class _HomeScreenState extends State<HomeScreen> {
         _loading = false;
       });
     } catch (error) {
-      debugPrint('Home load error: $error');
+      debugPrint(
+        'Home load error: $error',
+      );
 
       if (!mounted) {
         return;
@@ -101,7 +131,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
       setState(() {
         _loading = false;
-        _error = 'Level data load করা যায়নি।';
+        _error =
+        'Level data load করা যায়নি।';
       });
     }
   }
@@ -111,7 +142,9 @@ class _HomeScreenState extends State<HomeScreen> {
       return;
     }
 
-    final completedLevelIds = await _progressRepository.loadCompletedLevelIds(
+    final completedLevelIds =
+    await _progressRepository
+        .loadCompletedLevelIds(
       _levels.map((level) => level.id),
     );
 
@@ -120,13 +153,17 @@ class _HomeScreenState extends State<HomeScreen> {
     }
 
     setState(() {
-      _completedLevelIds = completedLevelIds;
+      _completedLevelIds =
+          completedLevelIds;
     });
   }
 
   int get _currentLevelIndex {
     return _levels.indexWhere(
-      (level) => !_completedLevelIds.contains(level.id),
+          (level) =>
+      !_completedLevelIds.contains(
+        level.id,
+      ),
     );
   }
 
@@ -135,7 +172,8 @@ class _HomeScreenState extends State<HomeScreen> {
       return null;
     }
 
-    final currentIndex = _currentLevelIndex;
+    final currentIndex =
+        _currentLevelIndex;
 
     if (currentIndex == -1) {
       return _levels.last;
@@ -144,26 +182,37 @@ class _HomeScreenState extends State<HomeScreen> {
     return _levels[currentIndex];
   }
 
-  _LevelStatus _statusFor(int levelIndex) {
-    if (levelIndex < 0 || levelIndex >= _levels.length) {
+  _LevelStatus _statusFor(
+      int levelIndex,
+      ) {
+    if (levelIndex < 0 ||
+        levelIndex >= _levels.length) {
       return _LevelStatus.locked;
     }
 
     final level = _levels[levelIndex];
 
-    if (_completedLevelIds.contains(level.id)) {
+    if (_completedLevelIds.contains(
+      level.id,
+    )) {
       return _LevelStatus.completed;
     }
 
-    if (levelIndex == _currentLevelIndex) {
+    if (levelIndex ==
+        _currentLevelIndex) {
       return _LevelStatus.current;
     }
 
     return _LevelStatus.locked;
   }
 
-  Future<void> _openLevel(LevelModel level) async {
-    await openLevelDetails(context, level);
+  Future<void> _openLevel(
+      LevelModel level,
+      ) async {
+    await openLevelDetails(
+      context,
+      level,
+    );
 
     if (!mounted) {
       return;
@@ -182,17 +231,21 @@ class _HomeScreenState extends State<HomeScreen> {
     await _openLevel(level);
   }
 
-  Future<void> _handleLevelTap(int index) async {
+  Future<void> _handleLevelTap(
+      int index,
+      ) async {
     final status = _statusFor(index);
     final level = _levels[index];
 
     if (status == _LevelStatus.locked) {
-      ScaffoldMessenger.of(context).showSnackBar(
+      ScaffoldMessenger.of(context)
+          .showSnackBar(
         SnackBar(
           content: Text(
             'আগের level complete করলে Level ${level.order} unlock হবে।',
           ),
-          behavior: SnackBarBehavior.floating,
+          behavior:
+          SnackBarBehavior.floating,
         ),
       );
 
@@ -206,116 +259,202 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     final tabs = <Widget>[
       _buildHomeTab(),
-      const _TemporaryTab(icon: Icons.bolt_rounded, title: 'Daily Practice'),
-      const _TemporaryTab(icon: Icons.bar_chart_rounded, title: 'Progress'),
-      const _TemporaryTab(icon: Icons.settings_rounded, title: 'Settings'),
+      const _TemporaryTab(
+        icon: Icons.bolt_rounded,
+        title: 'Daily Practice',
+      ),
+      const _TemporaryTab(
+        icon: Icons.bar_chart_rounded,
+        title: 'Progress',
+      ),
+      const _TemporaryTab(
+        icon: Icons.settings_rounded,
+        title: 'Settings',
+      ),
     ];
 
     return Scaffold(
       backgroundColor: _surface,
-      body: IndexedStack(index: _selectedTab, children: tabs),
-      bottomNavigationBar: NavigationBar(
+      body: IndexedStack(
+        index: _selectedTab,
+        children: tabs,
+      ),
+      bottomNavigationBar:
+      NavigationBar(
         selectedIndex: _selectedTab,
         height: 70,
         backgroundColor: _white,
-        indicatorColor: _teal.withValues(alpha: 0.15),
-        onDestinationSelected: (index) {
+        indicatorColor:
+        _teal.withValues(
+          alpha: 0.15,
+        ),
+        onDestinationSelected: (
+            index,
+            ) {
           setState(() {
             _selectedTab = index;
           });
         },
-        destinations: const <NavigationDestination>[
+        destinations: const <
+            NavigationDestination>[
           NavigationDestination(
-            icon: Icon(Icons.route_outlined),
-            selectedIcon: Icon(Icons.route_rounded, color: _teal),
+            icon:
+            Icon(Icons.route_outlined),
+            selectedIcon: Icon(
+              Icons.route_rounded,
+              color: _teal,
+            ),
             label: 'Home',
           ),
           NavigationDestination(
-            icon: Icon(Icons.bolt_outlined),
-            selectedIcon: Icon(Icons.bolt_rounded, color: _teal),
+            icon:
+            Icon(Icons.bolt_outlined),
+            selectedIcon: Icon(
+              Icons.bolt_rounded,
+              color: _teal,
+            ),
             label: 'Practice',
           ),
           NavigationDestination(
-            icon: Icon(Icons.bar_chart_outlined),
-            selectedIcon: Icon(Icons.bar_chart_rounded, color: _teal),
+            icon: Icon(
+              Icons.bar_chart_outlined,
+            ),
+            selectedIcon: Icon(
+              Icons.bar_chart_rounded,
+              color: _teal,
+            ),
             label: 'Progress',
           ),
           NavigationDestination(
-            icon: Icon(Icons.settings_outlined),
-            selectedIcon: Icon(Icons.settings_rounded, color: _teal),
+            icon: Icon(
+              Icons.settings_outlined,
+            ),
+            selectedIcon: Icon(
+              Icons.settings_rounded,
+              color: _teal,
+            ),
             label: 'Settings',
           ),
         ],
       ),
       floatingActionButton:
-          _selectedTab == 0 &&
-              !_loading &&
-              _error == null &&
-              _currentLevel != null
-          ? FloatingActionButton.extended(
-              onPressed: _continueLearning,
-              backgroundColor: _yellow,
-              foregroundColor: _ink,
-              icon: const Icon(Icons.play_arrow_rounded),
-              label: const Text(
-                'Continue Learning',
-                style: TextStyle(fontWeight: FontWeight.w900),
-              ),
-            )
+      _selectedTab == 0 &&
+          !_loading &&
+          _error == null &&
+          _currentLevel != null
+          ? FloatingActionButton
+          .extended(
+        onPressed:
+        _continueLearning,
+        backgroundColor:
+        _yellow,
+        foregroundColor: _ink,
+        icon: const Icon(
+          Icons
+              .play_arrow_rounded,
+        ),
+        label: const Text(
+          'Continue Learning',
+          style: TextStyle(
+            fontWeight:
+            FontWeight.w900,
+          ),
+        ),
+      )
           : null,
     );
   }
 
   Widget _buildHomeTab() {
     if (_loading) {
-      return const Center(child: CircularProgressIndicator(color: _teal));
+      return const Center(
+        child:
+        CircularProgressIndicator(
+          color: _teal,
+        ),
+      );
     }
 
     if (_error != null) {
-      return _ErrorView(message: _error!, onRetry: _loadHome);
+      return _ErrorView(
+        message: _error!,
+        onRetry: _loadHome,
+      );
     }
 
     if (_levels.isEmpty) {
-      return _ErrorView(message: 'কোনো level পাওয়া যায়নি।', onRetry: _loadHome);
+      return _ErrorView(
+        message:
+        'কোনো level পাওয়া যায়নি।',
+        onRetry: _loadHome,
+      );
     }
 
-    final groupedLevels = SplayTreeMap<int, List<LevelModel>>();
+    final groupedLevels =
+    SplayTreeMap<
+        int,
+        List<LevelModel>>();
 
     for (final level in _levels) {
-      groupedLevels.putIfAbsent(level.worldId, () => <LevelModel>[]).add(level);
+      groupedLevels
+          .putIfAbsent(
+        level.worldId,
+            () => <LevelModel>[],
+      )
+          .add(level);
     }
 
     return RefreshIndicator(
       color: _teal,
       onRefresh: _loadHome,
       child: CustomScrollView(
-        physics: const AlwaysScrollableScrollPhysics(
-          parent: BouncingScrollPhysics(),
+        physics:
+        const AlwaysScrollableScrollPhysics(
+          parent:
+          BouncingScrollPhysics(),
         ),
         slivers: <Widget>[
           SliverToBoxAdapter(
-            child: _HomeHeader(streak: _streak, xp: _xp),
+            child: _HomeHeader(
+              streak: _streak,
+              xp: _xp,
+            ),
           ),
           SliverPadding(
-            padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
+            padding:
+            const EdgeInsets.fromLTRB(
+              16,
+              16,
+              16,
+              8,
+            ),
             sliver: SliverToBoxAdapter(
               child: _DailyProgressCard(
-                completedMinutes: _dailyMinutes,
-                targetMinutes: _dailyTarget,
+                completedMinutes:
+                _dailyMinutes,
+                targetMinutes:
+                _dailyTarget,
               ),
             ),
           ),
-          for (final entry in groupedLevels.entries)
+          for (
+          final entry
+          in groupedLevels.entries
+          )
             SliverToBoxAdapter(
               child: _WorldSection(
                 worldId: entry.key,
                 levels: entry.value,
                 allLevels: _levels,
                 statusFor: _statusFor,
-                onLevelTap: _handleLevelTap,
+                onLevelTap:
+                _handleLevelTap,
               ),
             ),
-          const SliverToBoxAdapter(child: SizedBox(height: 110)),
+          const SliverToBoxAdapter(
+            child:
+            SizedBox(height: 110),
+          ),
         ],
       ),
     );
@@ -323,7 +462,10 @@ class _HomeScreenState extends State<HomeScreen> {
 }
 
 class _HomeHeader extends StatelessWidget {
-  const _HomeHeader({required this.streak, required this.xp});
+  const _HomeHeader({
+    required this.streak,
+    required this.xp,
+  });
 
   final int streak;
   final int xp;
@@ -332,21 +474,28 @@ class _HomeHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: _ink,
-      padding: const EdgeInsets.fromLTRB(20, 20, 20, 18),
+      padding: const EdgeInsets.fromLTRB(
+        20,
+        20,
+        20,
+        18,
+      ),
       child: SafeArea(
         bottom: false,
         child: Row(
           children: <Widget>[
             const Expanded(
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment:
+                CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
                     'ENGLISH BOLI',
                     style: TextStyle(
                       color: _teal,
                       fontSize: 13,
-                      fontWeight: FontWeight.w900,
+                      fontWeight:
+                      FontWeight.w900,
                       letterSpacing: 1.4,
                     ),
                   ),
@@ -356,19 +505,25 @@ class _HomeHeader extends StatelessWidget {
                     style: TextStyle(
                       color: _white,
                       fontSize: 21,
-                      fontWeight: FontWeight.w900,
+                      fontWeight:
+                      FontWeight.w900,
                     ),
                   ),
                 ],
               ),
             ),
             _HeaderStat(
-              icon: Icons.local_fire_department_rounded,
+              icon: Icons
+                  .local_fire_department_rounded,
               color: _coral,
               value: '$streak',
             ),
             const SizedBox(width: 8),
-            _HeaderStat(icon: Icons.star_rounded, color: _yellow, value: '$xp'),
+            _HeaderStat(
+              icon: Icons.star_rounded,
+              color: _yellow,
+              value: '$xp',
+            ),
           ],
         ),
       ),
@@ -390,18 +545,32 @@ class _HeaderStat extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+      padding:
+      const EdgeInsets.symmetric(
+        horizontal: 10,
+        vertical: 8,
+      ),
       decoration: BoxDecoration(
-        color: _white.withValues(alpha: 0.08),
-        borderRadius: BorderRadius.circular(8),
+        color: _white.withValues(
+          alpha: 0.08,
+        ),
+        borderRadius:
+        BorderRadius.circular(8),
       ),
       child: Row(
         children: <Widget>[
-          Icon(icon, color: color, size: 20),
+          Icon(
+            icon,
+            color: color,
+            size: 20,
+          ),
           const SizedBox(width: 4),
           Text(
             value,
-            style: const TextStyle(color: _white, fontWeight: FontWeight.w900),
+            style: const TextStyle(
+              color: _white,
+              fontWeight: FontWeight.w900,
+            ),
           ),
         ],
       ),
@@ -409,7 +578,8 @@ class _HeaderStat extends StatelessWidget {
   }
 }
 
-class _DailyProgressCard extends StatelessWidget {
+class _DailyProgressCard
+    extends StatelessWidget {
   const _DailyProgressCard({
     required this.completedMinutes,
     required this.targetMinutes,
@@ -422,43 +592,63 @@ class _DailyProgressCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final progress = targetMinutes <= 0
         ? 0.0
-        : (completedMinutes / targetMinutes).clamp(0.0, 1.0).toDouble();
+        : (completedMinutes /
+        targetMinutes)
+        .clamp(0.0, 1.0)
+        .toDouble();
 
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: _white,
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: const Color(0xFFDCE5E2)),
+        borderRadius:
+        BorderRadius.circular(8),
+        border: Border.all(
+          color:
+          const Color(0xFFDCE5E2),
+        ),
       ),
       child: Column(
         children: <Widget>[
           Row(
             children: <Widget>[
-              const Icon(Icons.today_rounded, color: _teal),
+              const Icon(
+                Icons.today_rounded,
+                color: _teal,
+              ),
               const SizedBox(width: 10),
               const Expanded(
                 child: Text(
                   'Today’s speaking goal',
-                  style: TextStyle(color: _ink, fontWeight: FontWeight.w800),
+                  style: TextStyle(
+                    color: _ink,
+                    fontWeight:
+                    FontWeight.w800,
+                  ),
                 ),
               ),
               Text(
                 '$completedMinutes/$targetMinutes min',
                 style: const TextStyle(
                   color: _muted,
-                  fontWeight: FontWeight.w700,
+                  fontWeight:
+                  FontWeight.w700,
                 ),
               ),
             ],
           ),
           const SizedBox(height: 12),
           ClipRRect(
-            borderRadius: BorderRadius.circular(4),
-            child: LinearProgressIndicator(
+            borderRadius:
+            BorderRadius.circular(4),
+            child:
+            LinearProgressIndicator(
               value: progress,
               minHeight: 9,
-              backgroundColor: const Color(0xFFE5ECEA),
+              backgroundColor:
+              const Color(
+                0xFFE5ECEA,
+              ),
               color: _teal,
             ),
           ),
@@ -468,7 +658,8 @@ class _DailyProgressCard extends StatelessWidget {
   }
 }
 
-class _WorldSection extends StatelessWidget {
+class _WorldSection
+    extends StatelessWidget {
   const _WorldSection({
     required this.worldId,
     required this.levels,
@@ -480,7 +671,8 @@ class _WorldSection extends StatelessWidget {
   final int worldId;
   final List<LevelModel> levels;
   final List<LevelModel> allLevels;
-  final _LevelStatus Function(int index) statusFor;
+  final _LevelStatus Function(int index)
+  statusFor;
   final ValueChanged<int> onLevelTap;
 
   String get _worldTitle {
@@ -492,61 +684,90 @@ class _WorldSection extends StatelessWidget {
       5: 'Speak Freely',
     };
 
-    return worldTitles[worldId] ?? 'Speaking Journey';
+    return worldTitles[worldId] ??
+        'Speaking Journey';
   }
 
   @override
   Widget build(BuildContext context) {
-    final completedCount = levels.where((level) {
-      final globalIndex = allLevels.indexOf(level);
+    final completedCount =
+        levels.where((level) {
+          final globalIndex =
+          allLevels.indexOf(level);
 
-      return statusFor(globalIndex) == _LevelStatus.completed;
-    }).length;
+          return statusFor(globalIndex) ==
+              _LevelStatus.completed;
+        }).length;
 
     return Padding(
-      padding: const EdgeInsets.fromLTRB(16, 10, 16, 12),
+      padding:
+      const EdgeInsets.fromLTRB(
+        16,
+        10,
+        16,
+        12,
+      ),
       child: Column(
         children: <Widget>[
           Container(
             width: double.infinity,
-            padding: const EdgeInsets.all(16),
+            padding:
+            const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: worldId.isEven ? _teal : _ink,
-              borderRadius: BorderRadius.circular(8),
+              color: worldId.isEven
+                  ? _teal
+                  : _ink,
+              borderRadius:
+              BorderRadius.circular(8),
             ),
             child: Row(
               children: <Widget>[
                 Container(
                   width: 46,
                   height: 46,
-                  decoration: BoxDecoration(
+                  decoration:
+                  BoxDecoration(
                     color: _yellow,
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius:
+                    BorderRadius.circular(
+                      8,
+                    ),
                   ),
                   child: const Icon(
-                    Icons.record_voice_over_rounded,
+                    Icons
+                        .record_voice_over_rounded,
                     color: _ink,
                   ),
                 ),
                 const SizedBox(width: 12),
                 Expanded(
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment:
+                    CrossAxisAlignment
+                        .start,
                     children: <Widget>[
                       Text(
                         'WORLD $worldId',
                         style: TextStyle(
-                          color: _white.withValues(alpha: 0.7),
+                          color: _white
+                              .withValues(
+                            alpha: 0.7,
+                          ),
                           fontSize: 12,
-                          fontWeight: FontWeight.w800,
+                          fontWeight:
+                          FontWeight
+                              .w800,
                         ),
                       ),
                       Text(
                         _worldTitle,
-                        style: const TextStyle(
+                        style:
+                        const TextStyle(
                           color: _white,
                           fontSize: 19,
-                          fontWeight: FontWeight.w900,
+                          fontWeight:
+                          FontWeight
+                              .w900,
                         ),
                       ),
                     ],
@@ -556,7 +777,8 @@ class _WorldSection extends StatelessWidget {
                   '$completedCount/${levels.length}',
                   style: const TextStyle(
                     color: _white,
-                    fontWeight: FontWeight.w900,
+                    fontWeight:
+                    FontWeight.w900,
                   ),
                 ),
               ],
@@ -564,45 +786,82 @@ class _WorldSection extends StatelessWidget {
           ),
           const SizedBox(height: 8),
           LayoutBuilder(
-            builder: (context, constraints) {
-              final pathPoints = List<Offset>.generate(levels.length, (index) {
-                const horizontalPositions = <double>[
-                  0.25,
-                  0.50,
-                  0.75,
-                  0.58,
-                  0.32,
-                ];
+            builder: (
+                context,
+                constraints,
+                ) {
+              final pathPoints =
+              List<Offset>.generate(
+                levels.length,
+                    (index) {
+                  const horizontalPositions =
+                  <double>[
+                    0.25,
+                    0.50,
+                    0.75,
+                    0.58,
+                    0.32,
+                  ];
 
-                final x =
-                    constraints.maxWidth *
-                    horizontalPositions[index % horizontalPositions.length];
+                  final x =
+                      constraints.maxWidth *
+                          horizontalPositions[
+                          index %
+                              horizontalPositions
+                                  .length];
 
-                final y = 37 + (index * 118.0);
+                  final y =
+                      37 + (index * 118.0);
 
-                return Offset(x, y);
-              });
+                  return Offset(x, y);
+                },
+              );
 
               return SizedBox(
-                height: levels.length * 118.0,
+                height:
+                levels.length * 118.0,
                 child: Stack(
                   children: <Widget>[
                     Positioned.fill(
                       child: CustomPaint(
-                        painter: _SpeechPathPainter(pathPoints),
+                        painter:
+                        _SpeechPathPainter(
+                          pathPoints,
+                        ),
                       ),
                     ),
-                    for (var index = 0; index < levels.length; index++)
+                    for (
+                    var index = 0;
+                    index <
+                        levels.length;
+                    index++
+                    )
                       Positioned(
-                        left: (pathPoints[index].dx - 48)
-                            .clamp(0.0, constraints.maxWidth - 96)
+                        left: (pathPoints[index]
+                            .dx -
+                            48)
+                            .clamp(
+                          0.0,
+                          constraints
+                              .maxWidth -
+                              96,
+                        )
                             .toDouble(),
                         top: index * 118.0,
                         child: _LevelNode(
-                          level: levels[index],
-                          status: statusFor(allLevels.indexOf(levels[index])),
+                          level:
+                          levels[index],
+                          status: statusFor(
+                            allLevels.indexOf(
+                              levels[index],
+                            ),
+                          ),
                           onTap: () {
-                            onLevelTap(allLevels.indexOf(levels[index]));
+                            onLevelTap(
+                              allLevels.indexOf(
+                                levels[index],
+                              ),
+                            );
                           },
                         ),
                       ),
@@ -617,25 +876,41 @@ class _WorldSection extends StatelessWidget {
   }
 }
 
-class _SpeechPathPainter extends CustomPainter {
-  const _SpeechPathPainter(this.points);
+class _SpeechPathPainter
+    extends CustomPainter {
+  const _SpeechPathPainter(
+      this.points,
+      );
 
   final List<Offset> points;
 
   @override
-  void paint(Canvas canvas, Size size) {
+  void paint(
+      Canvas canvas,
+      Size size,
+      ) {
     if (points.length < 2) {
       return;
     }
 
-    final path = Path()..moveTo(points.first.dx, points.first.dy);
+    final path = Path()
+      ..moveTo(
+        points.first.dx,
+        points.first.dy,
+      );
 
-    for (var index = 1; index < points.length; index++) {
-      final previous = points[index - 1];
+    for (
+    var index = 1;
+    index < points.length;
+    index++
+    ) {
+      final previous =
+      points[index - 1];
 
       final current = points[index];
 
-      final middleY = (previous.dy + current.dy) / 2;
+      final middleY =
+          (previous.dy + current.dy) / 2;
 
       path.cubicTo(
         previous.dx,
@@ -658,7 +933,9 @@ class _SpeechPathPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(_SpeechPathPainter oldDelegate) {
+  bool shouldRepaint(
+      _SpeechPathPainter oldDelegate,
+      ) {
     return oldDelegate.points != points;
   }
 }
@@ -676,9 +953,11 @@ class _LevelNode extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isCompleted = status == _LevelStatus.completed;
+    final isCompleted =
+        status == _LevelStatus.completed;
 
-    final isCurrent = status == _LevelStatus.current;
+    final isCurrent =
+        status == _LevelStatus.current;
 
     final backgroundColor = isCompleted
         ? _teal
@@ -694,47 +973,63 @@ class _LevelNode extends StatelessWidget {
 
     return Semantics(
       button: true,
-      label: 'Level ${level.order}, ${status.name}',
+      label:
+      'Level ${level.order}, ${status.name}',
       child: InkWell(
         onTap: onTap,
-        borderRadius: BorderRadius.circular(48),
+        borderRadius:
+        BorderRadius.circular(48),
         child: SizedBox(
           width: 96,
           child: Column(
             children: <Widget>[
               AnimatedContainer(
-                duration: const Duration(milliseconds: 250),
+                duration:
+                const Duration(
+                  milliseconds: 250,
+                ),
                 width: 74,
                 height: 74,
                 decoration: BoxDecoration(
                   color: backgroundColor,
                   shape: BoxShape.circle,
                   border: Border.all(
-                    color: isCurrent ? _ink : _white,
-                    width: isCurrent ? 4 : 3,
+                    color: isCurrent
+                        ? _ink
+                        : _white,
+                    width:
+                    isCurrent ? 4 : 3,
                   ),
                   boxShadow: <BoxShadow>[
                     BoxShadow(
-                      color: _ink.withValues(alpha: 0.13),
-                      offset: const Offset(0, 5),
+                      color:
+                      _ink.withValues(
+                        alpha: 0.13,
+                      ),
+                      offset:
+                      const Offset(0, 5),
                       blurRadius: 0,
                     ),
                   ],
                 ),
                 child: Icon(
                   nodeIcon,
-                  color: isCurrent ? _ink : _white,
+                  color: isCurrent
+                      ? _ink
+                      : _white,
                   size: 31,
                 ),
               ),
               const SizedBox(height: 7),
               Text(
                 'Level ${level.order}',
-                textAlign: TextAlign.center,
+                textAlign:
+                TextAlign.center,
                 style: const TextStyle(
                   color: _ink,
                   fontSize: 12,
-                  fontWeight: FontWeight.w800,
+                  fontWeight:
+                  FontWeight.w800,
                 ),
               ),
             ],
@@ -745,8 +1040,12 @@ class _LevelNode extends StatelessWidget {
   }
 }
 
-class _TemporaryTab extends StatelessWidget {
-  const _TemporaryTab({required this.icon, required this.title});
+class _TemporaryTab
+    extends StatelessWidget {
+  const _TemporaryTab({
+    required this.icon,
+    required this.title,
+  });
 
   final IconData icon;
   final String title;
@@ -756,22 +1055,30 @@ class _TemporaryTab extends StatelessWidget {
     return SafeArea(
       child: Center(
         child: Column(
-          mainAxisSize: MainAxisSize.min,
+          mainAxisSize:
+          MainAxisSize.min,
           children: <Widget>[
-            Icon(icon, color: _teal, size: 52),
+            Icon(
+              icon,
+              color: _teal,
+              size: 52,
+            ),
             const SizedBox(height: 12),
             Text(
               title,
               style: const TextStyle(
                 color: _ink,
                 fontSize: 23,
-                fontWeight: FontWeight.w900,
+                fontWeight:
+                FontWeight.w900,
               ),
             ),
             const SizedBox(height: 5),
             const Text(
               'এই screen পরবর্তী step-এ তৈরি হবে।',
-              style: TextStyle(color: _muted),
+              style: TextStyle(
+                color: _muted,
+              ),
             ),
           ],
         ),
@@ -781,7 +1088,10 @@ class _TemporaryTab extends StatelessWidget {
 }
 
 class _ErrorView extends StatelessWidget {
-  const _ErrorView({required this.message, required this.onRetry});
+  const _ErrorView({
+    required this.message,
+    required this.onRetry,
+  });
 
   final String message;
   final VoidCallback onRetry;
@@ -790,23 +1100,34 @@ class _ErrorView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Padding(
-        padding: const EdgeInsets.all(24),
+        padding:
+        const EdgeInsets.all(24),
         child: Column(
-          mainAxisSize: MainAxisSize.min,
+          mainAxisSize:
+          MainAxisSize.min,
           children: <Widget>[
-            const Icon(Icons.error_outline_rounded, color: _coral, size: 48),
+            const Icon(
+              Icons.error_outline_rounded,
+              color: _coral,
+              size: 48,
+            ),
             const SizedBox(height: 12),
             Text(
               message,
-              textAlign: TextAlign.center,
+              textAlign:
+              TextAlign.center,
               style: const TextStyle(
                 color: _ink,
                 fontSize: 17,
-                fontWeight: FontWeight.w800,
+                fontWeight:
+                FontWeight.w800,
               ),
             ),
             const SizedBox(height: 16),
-            FilledButton(onPressed: onRetry, child: const Text('Retry')),
+            FilledButton(
+              onPressed: onRetry,
+              child: const Text('Retry'),
+            ),
           ],
         ),
       ),

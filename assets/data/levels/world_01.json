@@ -17,7 +17,284 @@
       "নিজে ও অন্য মানুষ সম্পর্কে সহজ বাক্য বলতে পারবেন",
       "সঠিক pronoun শুনে চিনতে ও বলতে পারবেন"
     ],
-    "sections": []
+    "sections": [
+      {
+        "id": "learn",
+        "type": "learn",
+        "title": "Meet the Pronouns",
+        "items": [
+          {
+            "id": "l1_learn_01",
+            "type": "word",
+            "english": "I",
+            "bangla": "আমি",
+            "exampleEnglish": "I am ready.",
+            "exampleBangla": "আমি প্রস্তুত।",
+            "illustrationKey": "self"
+          },
+          {
+            "id": "l1_learn_02",
+            "type": "word",
+            "english": "You",
+            "bangla": "তুমি অথবা আপনি",
+            "exampleEnglish": "You are my friend.",
+            "exampleBangla": "তুমি আমার বন্ধু।",
+            "illustrationKey": "you"
+          },
+          {
+            "id": "l1_learn_03",
+            "type": "word",
+            "english": "He",
+            "bangla": "সে — কোনো ছেলে বা পুরুষ",
+            "exampleEnglish": "He is a teacher.",
+            "exampleBangla": "সে একজন শিক্ষক।",
+            "illustrationKey": "male"
+          },
+          {
+            "id": "l1_learn_04",
+            "type": "word",
+            "english": "She",
+            "bangla": "সে — কোনো মেয়ে বা নারী",
+            "exampleEnglish": "She is my sister.",
+            "exampleBangla": "সে আমার বোন।",
+            "illustrationKey": "female"
+          },
+          {
+            "id": "l1_learn_05",
+            "type": "sentence",
+            "english": "I am happy.",
+            "bangla": "আমি খুশি।",
+            "exampleEnglish": "I am happy today.",
+            "exampleBangla": "আমি আজ খুশি।",
+            "illustrationKey": "happy"
+          },
+          {
+            "id": "l1_learn_06",
+            "type": "sentence",
+            "english": "You are ready.",
+            "bangla": "তুমি প্রস্তুত।",
+            "exampleEnglish": "You are ready to learn.",
+            "exampleBangla": "তুমি শেখার জন্য প্রস্তুত।",
+            "illustrationKey": "you"
+          },
+          {
+            "id": "l1_learn_07",
+            "type": "sentence",
+            "english": "He is at home.",
+            "bangla": "সে বাসায় আছে।",
+            "exampleEnglish": "He is at home now.",
+            "exampleBangla": "সে এখন বাসায় আছে।",
+            "illustrationKey": "home"
+          },
+          {
+            "id": "l1_learn_08",
+            "type": "sentence",
+            "english": "She is a student.",
+            "bangla": "সে একজন শিক্ষার্থী।",
+            "exampleEnglish": "She is a good student.",
+            "exampleBangla": "সে একজন ভালো শিক্ষার্থী।",
+            "illustrationKey": "female"
+          },
+          {
+            "id": "l1_learn_09",
+            "type": "sentence",
+            "english": "I am your friend.",
+            "bangla": "আমি তোমার বন্ধু।",
+            "exampleEnglish": "Hello, I am your new friend.",
+            "exampleBangla": "হ্যালো, আমি তোমার নতুন বন্ধু।",
+            "illustrationKey": "friends"
+          },
+          {
+            "id": "l1_learn_10",
+            "type": "sentence",
+            "english": "He is my teacher.",
+            "bangla": "সে আমার শিক্ষক।",
+            "exampleEnglish": "He is my English teacher.",
+            "exampleBangla": "সে আমার ইংরেজি শিক্ষক।",
+            "illustrationKey": "teacher"
+          }
+        ]
+      },
+      {
+        "id": "practice",
+        "type": "practice",
+        "title": "Pronoun Smart Practice",
+        "progressAfterCompletion": 24,
+        "items": [
+          {
+            "id": "l1_practice_01",
+            "type": "mcq",
+            "question": "Which word means “আমি”?",
+            "questionBn": "সঠিক English word নির্বাচন করুন।",
+            "options": ["You", "I", "He", "She"],
+            "correctAnswer": "I",
+            "explanation": "নিজের সম্পর্কে বলার সময় I ব্যবহার করা হয়।"
+          },
+          {
+            "id": "l1_practice_02",
+            "type": "mcq",
+            "question": "Which pronoun is used for a girl or woman?",
+            "questionBn": "মেয়ে বা নারীর জন্য কোন pronoun ব্যবহার হয়?",
+            "options": ["He", "I", "She", "You"],
+            "correctAnswer": "She",
+            "explanation": "কোনো মেয়ে বা নারী সম্পর্কে বলার সময় She ব্যবহার করা হয়।"
+          },
+          {
+            "id": "l1_practice_03",
+            "type": "bangla_to_english",
+            "question": "আমি প্রস্তুত।",
+            "questionBn": "বাক্যটি English-এ লিখুন।",
+            "correctAnswer": "I am ready.",
+            "acceptedAnswers": ["I am ready"],
+            "explanation": "আমি = I এবং প্রস্তুত আছি = am ready।"
+          },
+          {
+            "id": "l1_practice_04",
+            "type": "bangla_to_english",
+            "question": "আমি খুশি।",
+            "questionBn": "বাক্যটি English-এ লিখুন।",
+            "correctAnswer": "I am happy.",
+            "acceptedAnswers": ["I am happy"],
+            "explanation": "নিজের অনুভূতি প্রকাশ করতে I am happy বলা হয়।"
+          },
+          {
+            "id": "l1_practice_05",
+            "type": "english_to_bangla",
+            "question": "You are my friend.",
+            "questionBn": "বাক্যটির বাংলা অর্থ লিখুন।",
+            "correctAnswer": "তুমি আমার বন্ধু।",
+            "acceptedAnswers": [
+              "তুমি আমার বন্ধু",
+              "আপনি আমার বন্ধু",
+              "আপনি আমার বন্ধু।"
+            ],
+            "explanation": "You-এর অর্থ তুমি অথবা আপনি এবং my friend-এর অর্থ আমার বন্ধু।"
+          },
+          {
+            "id": "l1_practice_06",
+            "type": "english_to_bangla",
+            "question": "She is a student.",
+            "questionBn": "বাক্যটির বাংলা অর্থ লিখুন।",
+            "correctAnswer": "সে একজন শিক্ষার্থী।",
+            "acceptedAnswers": [
+              "সে একজন শিক্ষার্থী",
+              "সে একজন ছাত্রী",
+              "সে একজন ছাত্রী।"
+            ],
+            "explanation": "She দিয়ে কোনো মেয়ে বা নারীকে বোঝানো হয়েছে।"
+          },
+          {
+            "id": "l1_practice_07",
+            "type": "fill_blank",
+            "question": "___ am ready.",
+            "questionBn": "শূন্যস্থানে সঠিক word লিখুন।",
+            "correctAnswer": "I",
+            "explanation": "Am-এর আগে subject হিসেবে I বসে।"
+          },
+          {
+            "id": "l1_practice_08",
+            "type": "fill_blank",
+            "question": "He ___ a teacher.",
+            "questionBn": "শূন্যস্থানে সঠিক word লিখুন।",
+            "correctAnswer": "is",
+            "explanation": "He-এর সঙ্গে helping verb হিসেবে is ব্যবহার করা হয়।"
+          },
+          {
+            "id": "l1_practice_09",
+            "type": "word_arrange",
+            "question": "Make a correct sentence",
+            "questionBn": "Words-গুলো সঠিকভাবে সাজান।",
+            "words": ["ready.", "am", "I"],
+            "correctAnswer": "I am ready.",
+            "explanation": "সঠিক order হলো Subject + am + adjective।"
+          },
+          {
+            "id": "l1_practice_10",
+            "type": "word_arrange",
+            "question": "Make a correct sentence",
+            "questionBn": "Words-গুলো সঠিকভাবে সাজান।",
+            "words": ["student.", "a", "is", "She"],
+            "correctAnswer": "She is a student.",
+            "explanation": "সঠিক order হলো She + is + a student।"
+          },
+          {
+            "id": "l1_practice_11",
+            "type": "matching",
+            "question": "Match the English words with Bangla",
+            "questionBn": "বাম পাশের word নির্বাচন করে ডান পাশের অর্থ নির্বাচন করুন।",
+            "explanation": "I = আমি, You = তুমি, He = সে পুরুষ এবং She = সে নারী।",
+            "pairs": [
+              {
+                "left": "I",
+                "right": "আমি"
+              },
+              {
+                "left": "You",
+                "right": "তুমি"
+              },
+              {
+                "left": "He",
+                "right": "সে — পুরুষ"
+              },
+              {
+                "left": "She",
+                "right": "সে — নারী"
+              }
+            ]
+          },
+          {
+            "id": "l1_practice_12",
+            "type": "matching",
+            "question": "Match each subject with the correct helping verb",
+            "questionBn": "Subject-এর সঙ্গে সঠিক helping verb মিলান।",
+            "explanation": "I-এর সঙ্গে am এবং You-এর সঙ্গে are ব্যবহৃত হয়। He ও She-এর সঙ্গে is ব্যবহৃত হয়।",
+            "pairs": [
+              {
+                "left": "I",
+                "right": "am"
+              },
+              {
+                "left": "You",
+                "right": "are"
+              },
+              {
+                "left": "He",
+                "right": "is"
+              },
+              {
+                "left": "She",
+                "right": "is"
+              }
+            ]
+          },
+          {
+            "id": "l1_practice_13",
+            "type": "question_answer",
+            "question": "Are you ready?",
+            "questionBn": "English-এ একটি short answer লিখুন।",
+            "correctAnswer": "Yes, I am.",
+            "acceptedAnswers": [
+              "Yes I am",
+              "Yes, I am",
+              "I am ready",
+              "I am ready."
+            ],
+            "explanation": "Are you দিয়ে প্রশ্ন করলে নিজের positive short answer হলো Yes, I am।"
+          },
+          {
+            "id": "l1_practice_14",
+            "type": "question_answer",
+            "question": "Who is he?",
+            "questionBn": "English-এ উত্তর লিখুন: সে আমার শিক্ষক।",
+            "correctAnswer": "He is my teacher.",
+            "acceptedAnswers": [
+              "He is my teacher"
+            ],
+            "explanation": "কোনো পুরুষ সম্পর্কে উত্তর শুরু করতে He ব্যবহার করা হয়।"
+          }
+        ]
+      }
+    ]
   },
   {
     "schemaVersion": 1,
@@ -115,7 +392,7 @@
     "learningGoals": [
       "নিজের কাছে কী আছে তা বলতে পারবেন",
       "নিজের কাছে কী নেই তা বলতে পারবেন",
-      "Have এবং don't have দিয়ে প্রশ্নের উত্তর দিতে পারবেন"
+      "Have এবং don't have দিয়ে উত্তর দিতে পারবেন"
     ],
     "sections": []
   },
@@ -175,7 +452,7 @@
     "learningGoals": [
       "প্রতিদিনের প্রয়োজনীয় action word চিনতে পারবেন",
       "Action word-এর উচ্চারণ ও অর্থ বুঝতে পারবেন",
-      "Action word ব্যবহার করে ছোট বাক্য বলতে পারবেন"
+      "Action word দিয়ে ছোট বাক্য বলতে পারবেন"
     ],
     "sections": []
   },

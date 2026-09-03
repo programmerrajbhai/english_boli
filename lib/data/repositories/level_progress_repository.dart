@@ -41,50 +41,75 @@ class LevelProgressRepository {
 
     return LevelProgress(
       hasStarted: await _preferences.getBool(_startedKey(levelId)) ?? false,
-      completedPractices:
-          await _preferences.getInt(_completedPracticeKey(levelId)) ?? 0,
+      completedPractices: await _preferences.getInt(_practiceKey(levelId)) ?? 0,
       currentStage: await _preferences.getInt(_stageKey(levelId)) ?? 0,
       isCompleted: await _preferences.getBool(_completedKey(levelId)) ?? false,
     );
   }
 
   Future<Set<int>> loadCompletedLevelIds(Iterable<int> levelIds) async {
-    final completedLevelIds = <int>{};
+    final completedIds = <int>{};
 
     for (final levelId in levelIds) {
       final progress = await loadLevel(levelId);
 
       if (progress.isCompleted) {
-        completedLevelIds.add(levelId);
+        completedIds.add(levelId);
       }
     }
 
-    return completedLevelIds;
+    return completedIds;
   }
 
   Future<void> markLevelStarted(int levelId) {
     return _preferences.setBool(_startedKey(levelId), true);
   }
 
-  Future<LevelProgress> recordPracticeCompleted({
+  Future<int> loadSectionPosition({
+    required int levelId,
+    required String sectionId,
+  }) async {
+    return await _preferences.getInt(_sectionPositionKey(levelId, sectionId)) ??
+        0;
+  }
+
+  Future<void> saveSectionPosition({
+    required int levelId,
+    required String sectionId,
+    required int itemIndex,
+  }) {
+    return _preferences.setInt(
+      _sectionPositionKey(levelId, sectionId),
+      itemIndex < 0 ? 0 : itemIndex,
+    );
+  }
+
+  Future<void> clearSectionPosition({
+    required int levelId,
+    required String sectionId,
+  }) {
+    return _preferences.remove(_sectionPositionKey(levelId, sectionId));
+  }
+
+  Future<void> completeStage({
     required int levelId,
     required int totalPractices,
-    required int currentStage,
+    required int minimumCompletedPractices,
+    required int nextStage,
   }) async {
-    final previousProgress = await loadLevel(levelId);
+    final oldProgress = await loadLevel(levelId);
 
-    final completedPractices = (previousProgress.completedPractices + 1)
-        .clamp(0, totalPractices)
-        .toInt();
+    final completedPractices =
+        oldProgress.completedPractices > minimumCompletedPractices
+        ? oldProgress.completedPractices
+        : minimumCompletedPractices;
 
     await saveLevelProgress(
       levelId: levelId,
       completedPractices: completedPractices,
       totalPractices: totalPractices,
-      currentStage: currentStage,
+      currentStage: nextStage,
     );
-
-    return loadLevel(levelId);
   }
 
   Future<void> saveLevelProgress({
@@ -101,7 +126,7 @@ class LevelProgressRepository {
 
     await Future.wait(<Future<void>>[
       _preferences.setBool(_startedKey(levelId), true),
-      _preferences.setInt(_completedPracticeKey(levelId), safeCompleted),
+      _preferences.setInt(_practiceKey(levelId), safeCompleted),
       _preferences.setInt(_stageKey(levelId), safeStage),
       _preferences.setBool(_completedKey(levelId), safeCompleted >= safeTotal),
     ]);
@@ -122,9 +147,10 @@ class LevelProgressRepository {
   Future<void> resetLevel(int levelId) async {
     await Future.wait(<Future<void>>[
       _preferences.remove(_startedKey(levelId)),
-      _preferences.remove(_completedPracticeKey(levelId)),
+      _preferences.remove(_practiceKey(levelId)),
       _preferences.remove(_stageKey(levelId)),
       _preferences.remove(_completedKey(levelId)),
+      _preferences.remove(_sectionPositionKey(levelId, 'learn')),
     ]);
   }
 
@@ -132,7 +158,7 @@ class LevelProgressRepository {
     return 'level_${levelId}_started';
   }
 
-  String _completedPracticeKey(int levelId) {
+  String _practiceKey(int levelId) {
     return 'level_${levelId}_practice_done';
   }
 
@@ -142,5 +168,9 @@ class LevelProgressRepository {
 
   String _completedKey(int levelId) {
     return 'level_${levelId}_completed';
+  }
+
+  String _sectionPositionKey(int levelId, String sectionId) {
+    return 'level_${levelId}_${sectionId}_position';
   }
 }
